@@ -1,0 +1,122 @@
+{% extends "base_right.html" %}
+{% load staticfiles %}
+
+{% block css_extends %}
+
+{% endblock %}
+
+{% block content %}
+
+<div class="container">
+    <div class="row">
+        <div class="col-xs-12">
+          <!-- top tiles -->
+          <div class="row tile_count">
+            <div class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                <div class="tile-stats">
+                  <div class="icon"><i class="fa fa-users" style="color: #337ab7"></i></div>
+                  <div class="count">{{ user_count }}</div>
+                  <h3>用户总数</h3>        
+                </div>
+              </div>
+              <div class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                <div class="tile-stats">
+                  <div class="icon"><i class="fa fa-pencil" style="color: #337ab7"></i></div>
+                  <div class="count">{{ sub_count }}</div>
+                  <h3>主题数量</h3>
+                </div>
+              </div>
+              <div class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                <div class="tile-stats">
+                  <div class="icon"><i class="fa fa-picture-o" style="color: #337ab7"></i></div>
+                  <div class="count">{{ image_count }}</div>
+                  <h3>图片数量</h3>
+                </div>
+              </div>
+              <div class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                <div class="tile-stats">
+                  <div class="icon"><i class="fa fa-folder-open" style="color: #337ab7"></i></div>
+                  <div class="count">{{ file_count }}</div>
+                  <h3>文件数量</h3>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- /top tiles -->
+
+          <div class="col-md-12 col-sm-12 col-xs-12">
+            <div class="dashboard_graph x_panel">
+              <div class="row x_title">
+                <div class="col-md-6">
+                  <h3>主题变化 <small>2018年</small></h3>
+                </div>
+                <div class="col-md-6">
+                  <div id="reportrange" class="pull-right" style="background: #fff; cursor: pointer; padding: 5px 10px; border: 1px solid #ccc">
+                    <i class="glyphicon glyphicon-calendar fa fa-calendar"></i>
+                    <span>December 30, 2014 - January 28, 2015</span> <b class="caret"></b>
+                  </div>
+                </div>
+              </div>
+              <div id="container" style="width: 100%;height:400px;">
+              </div>
+            </div>
+          </div>
+
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block js_extends %}
+
+<script>
+var chart = Highcharts.chart('container',{
+  credits: { 
+    enabled: false //不显示LOGO 
+  },
+  chart: {
+    type: 'column'
+  },
+  title: {
+    text: '主题数量月度变化'
+  },
+  subtitle: {
+    text: '文本'
+  },
+  xAxis: {
+    categories: [
+      '一月','二月','三月','四月','五月','六月','七月','八月','九月','十月','十一月','十二月'
+    ],
+    crosshair: true
+  },
+  yAxis: {
+    min: 0,
+    title: {
+      text: '数量'
+    }
+  },
+  tooltip: {
+    // head + 每个 point + footer 拼接成完整的 table
+    headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+    pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+    '<td style="padding:0"><b>{point.y:.1f} </b></td></tr>',
+    footerFormat: '</table>',
+    shared: true,
+    useHTML: true
+  },
+  plotOptions: {
+    column: {
+      borderWidth: 0
+    }
+  },
+  series: [{
+    name: '总结',
+    data: {{ sub_summary_count_list }}
+  }, {
+    name: '计划',
+    data: {{ sub_plan_count_list }}
+  }]
+});
+</script>
+
+{% endblock %}

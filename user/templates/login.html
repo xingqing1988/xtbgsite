@@ -1,0 +1,49 @@
+{% load staticfiles %}
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<title>登陆页面</title>
+<meta name="keywords" content="" />
+<meta name="description" content="" />
+<link rel="stylesheet" href="{% static 'login/css/style.css' %}" />
+
+<body style="background-position: 0px 0px; background: url({% static 'login/images/2.jpg' %}); background-repeat: no-repeat; background-size:cover;"> 
+    <div class="login-container">
+        <h1>测试开发版</h1>
+        
+        <div class="connect">
+            <p>版本号：20180913</p>
+        </div>
+        
+        <form action="{% url 'login' %}" method="POST" id="loginForm">
+            <!--csrf令牌-->
+            {% csrf_token %}
+            {% for field in login_form %}
+                <div>
+                    <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                    {{ field }}
+                    <p class='text-danger'>{{ field.errors.as_text }}</p>
+                </div>
+            {% endfor %}
+            <div style="margin-top:2em ">{{ login_form.non_field_errors }}</div>
+            <button id="submit" type="submit">登 录</button>
+        </form>
+
+        <a href="#">
+            <button type="button" class="register-tis">忘记密码？</button>
+        </a>
+
+    </div>
+
+<script src="{% static 'login/js/jquery.min.js' %}"></script>
+<script src="{% static 'login/js/common.js' %}"></script>
+<!--背景图片自动更换-->
+<script src="{% static 'login/js/supersized.3.2.7.min.js' %}"></script>
+<script src="{% static 'login/js/supersized-init.js' %}"></script>
+<!--表单验证-->
+<script src="{% static 'login/js/jquery.validate.min.js?var1.14.0' %}"></script>
+
+</body>
+</html>

@@ -1,0 +1,71 @@
+body{
+    scrollbar-color:red
+}
+div.django-ckeditor-widget{
+    width:100%;
+}
+
+div.form-title{
+    float:left;
+}
+
+div.form-level_one{
+    margin-left: 40px;
+    float:left;
+}
+
+div.form-level_two{
+    margin-left: 40px;
+    float:left;
+}
+
+div.form-subject_type{
+    margin-left: 40px;
+    float:left;
+}
+
+div.form-image{
+
+}
+
+div.form-file{
+ 
+}
+
+div.form-submit{
+    margin-top: -53px;
+}
+
+#home-paginator{
+    margin-top: 0px;
+    margin-bottom: 0px;
+}
+
+
+hr.sub_detail-hr{
+    border-top:1px solid #DCDCDC;
+}
+
+span.none-span{
+    margin-left:50%;
+    color: #1E90FF;
+}
+
+#inquire-date{
+    margin-left:1em;
+}
+
+div.box1{
+    overflow: hidden;
+    height: 414px;
+}
+
+div.box1-container {
+    overflow-x: hidden;
+    overflow-y: scroll;
+    /* padding-right: 15px; */ 
+    content: '移动端不用注释此行， pc端需要注释掉本行';
+    margin-right: -15px;
+    height: 420px;
+    width: 352px;
+}

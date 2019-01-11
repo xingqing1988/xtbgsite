@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+
+{% block content %}
+
+<div class="">
+     <h3 style="margin-left: 50%">{{ message }}</h3>
+</div>
+
+{% endblock %}
+
+
+{% block js_extends %}
+<script type='text/javascript'>
+       setTimeout("window.location.href='login'",3000);
+</script>
+{% endblock %}

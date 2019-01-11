@@ -1,0 +1,136 @@
+{% extends "base_right.html" %}
+
+{% block content %}
+
+<div class="row">
+
+<!--主题展示-->
+<div class="col-sm-12 blog-main">
+    <div class="x_panel">
+        <div class="x_title">
+            <h2>
+              主题展示 
+              <small>
+                {{ sbo }}>
+                {% for sbt in sbo.sbt_object %}
+                  <a href="{% url 'level_two' sbt.pk %}">{{ sbt }} | </a>
+                {% endfor %}
+              </small>
+            </h2>
+            <ul class="nav navbar-right panel_toolbox">
+              <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+              </li>
+              <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
+                <ul class="dropdown-menu" role="menu">
+                  <li><a href="#">Settings 1</a>
+                  </li>
+                  <li><a href="#">Settings 2</a>
+                  </li>
+                </ul>
+              </li>
+              <li><a class="close-link"><i class="fa fa-close"></i></a>
+              </li>
+            </ul>
+            <div class="clearfix"></div>
+          </div>
+
+          <div class="x_content">
+            <div class="table-responsive">
+                <table class="table table-striped jambo_table bulk_action">
+                    <thead>
+                      <tr class="headings">
+                        <th class="column-title">主题名称</th>
+                        <th class="column-title">所属一级类</th>
+                        <th class="column-title">所属二级类</th>
+                        <th class="column-title">主题类型</th>
+                        <th class="column-title">上传者</th>
+                        <th class="column-title">创健时间</th>
+                        <th class="column-title">图片</th>
+                        <th class="column-title no-link last"><span class="nobr">文件</span>
+                        </th>
+                      </tr>
+                    </thead>
+
+                    <tbody>
+                    {% for subject in subjects %}
+                      <tr class="even pointer">
+                        <td class=" "><a href="{% url 'sub_detail' subject.pk %}">{{subject.title}}</a></td>
+                        <td class=" ">{{subject.subject_level_one}}</td>
+                        <td class=" ">{{subject.subject_level_two}}</td>
+                        <td class=" ">{{subject.subject_type}}</td>
+                        <td class=" ">{{subject.author}}</td>
+                        <td class=" ">{{subject.created_time|date:'Y-m-d'}}</td>
+                        <td class="a-right a-right ">
+                          {% if subject.image_count %}
+                          <span class="glyphicon glyphicon-ok" ></span>
+                          {% else %}
+                          <span class="glyphicon glyphicon-remove"></span>
+                          {% endif %}
+                        </td>
+                        <td class=" last">
+                          {% if subject.file_count %}
+                          <span class="glyphicon glyphicon-ok"></span>
+                          {% else %}
+                          <span class="glyphicon glyphicon-remove"></span>
+                          {% endif %}
+                        </td>
+                      </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+
+                <!--分页列表-->
+                <div class='pull-left'>共有{{page_of_subjects.paginator.count}}个主题,当前第{{page_of_subjects.number}}页,共{{page_of_subjects.paginator.num_pages}}页</div>
+                <div class="paginator pull-right"> 
+                    <ul class="pagination" id='home-paginator'>
+                        <!--判断是否有上一页-->
+                        {% if page_of_subjects.has_previous %}    
+                            <li>
+                              <a href="?page={{ page_of_subjects.previous_page_number }}" aria-label="Previous">
+                                <span aria-hidden="true">&laquo;</span>
+                              </a>
+                            </li>
+                        {% else %}
+                            <li>
+                                <span aria-hidden="true">&laquo;</span>
+                            </li>
+                        {% endif %}
+                        <!--分页页数循环-->
+                        {% for page_num in page_range %}
+                            <!--判断是否是当前页-->    
+                            {% if page_num == page_of_subjects.number %}
+                                <li class="active"><a href="?page={{page_num}}">{{ page_num}}</a></li>
+                            {% else %}
+                                {% if page_num == '...' %}
+                                    <li ><a>{{ page_num}}</a></li>
+                                {% else %}
+                                    <li ><a href="?page={{page_num}}">{{ page_num}}</a></li>
+                                {% endif %}
+                            {% endif %}
+                        {% endfor %}
+                        <!--判断是否有下一页-->
+                        {% if page_of_subjects.has_next %}
+                            <li>
+                              <a href="?page={{ page_of_subjects.next_page_number }}" aria-label="Next">
+                                <span aria-hidden="true">&raquo;</span>
+                              </a>
+                            </li>
+                        {% else %}
+                            <li>
+                                <span aria-hidden="true">&raquo;</span>
+                            </li>
+                        {% endif %}
+                    </ul>
+                </div> 
+
+            </div>     
+        </div>
+    </div>
+</div>
+<!--主题展示结束-->
+
+</div>
+
+{% endblock %}
+
